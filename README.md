@@ -1,11 +1,25 @@
 # HatchTracing
 
-**TODO: Add description**
+It's a library that helps you to create `OpenTelemetry` spans with the least effort.
+
+When you `use HatchTracing` it will include all required modules to start using tracing,
+as well as importing the `span/1`, `span/2` and `span/3` functions.
+
+```elixir
+defmodule MyModule do
+  use HatchTracing
+
+  def my_function do
+    span do
+      # ... some code here
+    end
+  end
+end
+```
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `hatch_tracing` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `hatch_tracing` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -15,7 +29,4 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/hatch_tracing>.
-
+The docs can be found at <https://hexdocs.pm/hatch_tracing>.
