@@ -44,7 +44,6 @@ defmodule HatchTracing.MixProject do
   defp package do
     [
       name: "hatch_tracing",
-      organization: "hatch_ex",
       maintainers: ["Hatch"],
       licenses: ["MIT"],
       links: %{"GitHub" => @source_url}
