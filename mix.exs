@@ -2,25 +2,21 @@ defmodule HatchTracing.MixProject do
   use Mix.Project
 
   @version "0.1.0"
+  @source_url "https://github.com/Hatch1fy/hatch-tracing"
 
   def project do
     [
       app: :hatch_tracing,
       version: @version,
+      name: "HatchTracing",
+      description: "Helps you to create OpenTelemetry spans with the least effort",
+      source_url: @source_url,
+      homepage_url: @source_url,
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-
-      # Docs
-      name: "HatchTracing",
-      source_url: "https://github.com/Hatch1fy/hatch-tracing",
-      homepage_url: "https://github.com/Hatch1fy/hatch-tracing",
-      docs: [
-        # The main page in the docs
-        main: "HatchTracing",
-        logo: "assets/logo.png",
-        extras: ["README.md"]
-      ]
+      docs: docs(),
+      package: package()
     ]
   end
 
@@ -28,6 +24,30 @@ defmodule HatchTracing.MixProject do
   def application do
     [
       extra_applications: [:logger]
+    ]
+  end
+
+  defp docs do
+    [
+      main: "HatchTracing",
+      logo: "assets/logo.png",
+      source_ref: "v#{@version}",
+      canonical: "http://hexdocs.pm/ex_pipeline",
+      extras: [
+        "README.md",
+        "CHANGELOG.md": [filename: "changelog", title: "Changelog"],
+        LICENSE: [filename: "license", title: "License"]
+      ]
+    ]
+  end
+
+  defp package do
+    [
+      name: "hatch_tracing",
+      organization: "hatch_ex",
+      maintainers: ["Hatch"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => @source_url}
     ]
   end
 
