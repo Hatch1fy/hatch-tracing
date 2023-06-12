@@ -32,7 +32,7 @@ defmodule HatchTracing.MixProject do
       main: "HatchTracing",
       logo: "assets/logo.jpg",
       source_ref: "v#{@version}",
-      canonical: "http://hexdocs.pm/ex_pipeline",
+      canonical: "http://hexdocs.pm/hatch_tracing",
       extras: [
         "README.md",
         "CHANGELOG.md": [filename: "changelog", title: "Changelog"],
