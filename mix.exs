@@ -30,7 +30,7 @@ defmodule HatchTracing.MixProject do
   defp docs do
     [
       main: "HatchTracing",
-      logo: "assets/logo.png",
+      logo: "assets/logo.jpg",
       source_ref: "v#{@version}",
       canonical: "http://hexdocs.pm/ex_pipeline",
       extras: [
