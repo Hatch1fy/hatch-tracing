@@ -253,19 +253,16 @@ defmodule HatchTracing do
   Reference:
   https://opentelemetry.io/docs/reference/specification/trace/api/#set-status
   """
-  @spec set_status(OpenTelemetry.status()) :: boolean()
-  defdelegate set_status(status), to: OpenTelemetry.Tracer
+  @spec set_status(OpenTelemetry.status() | OpenTelemetry.status_code(), String.t()) :: boolean()
+  def set_status(status_or_status_code, description \\ "")
 
-  @doc """
-  Creates and sets the Status of the currently active Span.
+  def set_status(status, _description) when is_tuple(status) do
+    OpenTelemetry.Tracer.set_status(status)
+  end
 
-  If used, this will override the default Span Status, which is `:unset`.
-
-  Reference:
-  https://opentelemetry.io/docs/reference/specification/trace/api/#set-status
-  """
-  @spec set_status(OpenTelemetry.status_code(), String.t()) :: boolean
-  defdelegate set_status(status, message), to: OpenTelemetry.Tracer
+  def set_status(status_code, description) do
+    OpenTelemetry.Tracer.set_status(status_code, description)
+  end
 
   # @doc """
   # Creates a new span which is set to the currently active Span in the Context of
