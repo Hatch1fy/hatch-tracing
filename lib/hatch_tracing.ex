@@ -234,14 +234,15 @@ defmodule HatchTracing do
   Takes a `t:OpenTelemetry.span_ctx/0` and the Tracer sets it to the currently
   active Span.
   """
-  @spec set_current_span(any) :: any
+  @spec set_current_span(:opentelemetry.span_ctx() | :undefined) ::
+          :opentelemetry.span_ctx() | :undefined
   defdelegate set_current_span(span_context), to: OpenTelemetry.Tracer
 
   @doc """
   Takes a `t:OpenTelemetry.Ctx.t/0` and the `t:OpenTelemetry.span_ctx/0` and the
   Tracer sets it to the current span in the pass Context.
   """
-  @spec set_current_span(any, any) :: any
+  @spec set_current_span(:otel_ctx.t(), :opentelemetry.span_ctx() | :undefined) :: :otel_ctx.t()
   defdelegate set_current_span(context, span_context), to: OpenTelemetry.Tracer
 
   @doc """
@@ -312,11 +313,13 @@ defmodule HatchTracing do
   @doc """
   Returns the currently active `t:OpenTelemetry.span_ctx/0`.
   """
+  @spec current_span_ctx() :: :opentelemetry.span_ctx() | :undefined
   defdelegate current_span_ctx, to: OpenTelemetry.Tracer
 
   @doc """
   Returns the `t:OpenTelemetry.span_ctx/0` active in Context `ctx`.
   """
+  @spec current_span_ctx(:otel_ctx.t()) :: :opentelemetry.span_ctx() | :undefined
   defdelegate current_span_ctx(context), to: OpenTelemetry.Tracer
 
   @doc """
@@ -333,7 +336,7 @@ defmodule HatchTracing do
   Reference:
   https://opentelemetry.io/docs/reference/specification/common/attribute-naming/
   """
-  @spec set_attribute(String.t(), any()) :: boolean()
+  @spec set_attribute(OpenTelemetry.attribute_key(), OpenTelemetry.attribute_value()) :: boolean()
   def set_attribute(key, value)
 
   def set_attribute(key, value) when is_set(value) do
@@ -352,7 +355,7 @@ defmodule HatchTracing do
   Reference:
   https://opentelemetry.io/docs/reference/specification/common/attribute-naming/
   """
-  @spec set_attributes(String.t(), any()) :: boolean()
+  @spec set_attributes(OpenTelemetry.attribute_key(), map() | list() | tuple()) :: boolean()
   def set_attributes(key, values) do
     key
     |> enumerable_to_attrs(values)
@@ -377,7 +380,7 @@ defmodule HatchTracing do
   Reference:
   https://opentelemetry.io/docs/reference/specification/trace/api/#add-events
   """
-  @spec add_event(atom | binary, list | tuple | map) :: boolean
+  @spec add_event(OpenTelemetry.event_name(), OpenTelemetry.attributes_map()) :: boolean
   def add_event(name, attributes \\ %{}) do
     :otel_span.add_event(
       :otel_tracer.current_span_ctx(),
@@ -402,7 +405,7 @@ defmodule HatchTracing do
 
   If trace is not provided, the stacktrace is retrieved from `Process.info/2`
   """
-  @spec record_exception(Exception.t(), any, any) :: boolean
+  @spec record_exception(Exception.t(), any(), any()) :: boolean
   defdelegate record_exception(exception, trace \\ nil, attributes \\ []),
     to: OpenTelemetry.Tracer
 
@@ -419,7 +422,7 @@ defmodule HatchTracing do
   change for a Span and may lead to re-calculation of sampling or filtering
   decisions made previously depending on the implementation.
   """
-  @spec update_name(binary) :: boolean
+  @spec update_name(String.t()) :: boolean()
   defdelegate update_name(name), to: OpenTelemetry.Tracer
 
   # Transforms an enumerable into a map of attributes that can be used by
