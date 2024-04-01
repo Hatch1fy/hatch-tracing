@@ -1,5 +1,9 @@
 # Changelog for `hatch_tracing`
 
+## v0.1.2
+
+- Bump dependencies version
+
 ## v0.1.1
 
 - Fix some type specs to match the expected by OpenTelemetry #6
