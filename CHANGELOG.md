@@ -1,5 +1,9 @@
 # Changelog for `hatch_tracing`
 
+## v0.1.3
+
+- Fix type check warnings when calling the `with_span` function.
+
 ## v0.1.2
 
 - Bump dependencies version
