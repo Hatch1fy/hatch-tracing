@@ -100,7 +100,7 @@ defmodule HatchTracing do
       |> :opentelemetry.get_application_tracer()
       |> :otel_tracer.with_span(
         unquote(name),
-        unquote(start_opts),
+        Map.new(unquote(start_opts)),
         fn ctx ->
           try do
             unquote(block)
